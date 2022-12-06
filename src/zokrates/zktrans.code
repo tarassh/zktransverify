@@ -1,0 +1,18 @@
+// a - stream ssim
+// b - required minimum ssim
+// c - frame offset
+// d - ssim of frame at offset c
+
+def absdiff(field a, field b) -> (field):
+    return if a >= b then (a-b) else (b-a) fi
+    
+def main(field refssim, field dbgssim, private field[256] p1, private field[256] p2) -> (field):
+    field sad = 0
+    field maxsad = 256 * 10 
+    // TODO calculate ssim from p1 and p2
+    // Perform SAD check for now
+    for field i in 0..256 do
+       sad = sad + absdiff(p1[i],p2[i])
+    endfor
+
+	return if sad < maxsad && dbgssim >= refssim then 1 else 0 fi
